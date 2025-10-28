@@ -1,0 +1,971 @@
+[
+    {
+        "student_id": "MJS000",
+        "first_name": "ABDU",
+        "last_name": "KIBIRIGE",
+        "mid_term": {
+            "ENG": 85,
+            "MATH": 78,
+            "SCI": 92,
+            "SST": 80
+        },
+        "end_of_term": {
+            "ENG": 88,
+            "MATH": 82,
+            "SCI": 95,
+            "SST": 84
+        }
+    },
+    {
+        "student_id": "MJS001",
+        "first_name": "ABDURAHMAN",
+        "last_name": "KIBIRIGE",
+        "mid_term": {
+            "ENG": 90,
+            "MATH": 85,
+            "SCI": 88,
+            "SST": 87
+        },
+        "end_of_term": {
+            "ENG": 92,
+            "MATH": 89,
+            "SCI": 90,
+            "SST": 91
+        }
+    },
+    {
+        "student_id": "MJS002",
+        "first_name": "AKANDWANAHO",
+        "last_name": "DAVID",
+        "mid_term": {
+            "ENG": 78,
+            "MATH": 92,
+            "SCI": 85,
+            "SST": 80
+        },
+        "end_of_term": {
+            "ENG": 82,
+            "MATH": 95,
+            "SCI": 88,
+            "SST": 83
+        }
+    },
+    {
+        "student_id": "MJS003",
+        "first_name": "APENE",
+        "last_name": "ELIZABETH",
+        "mid_term": {
+            "ENG": 88,
+            "MATH": 76,
+            "SCI": 90,
+            "SST": 85
+        },
+        "end_of_term": {
+            "ENG": 90,
+            "MATH": 80,
+            "SCI": 92,
+            "SST": 88
+        }
+    },
+    {
+        "student_id": "MJS004",
+        "first_name": "BUKENYA",
+        "last_name": "PAUL",
+        "mid_term": {
+            "ENG": 82,
+            "MATH": 89,
+            "SCI": 78,
+            "SST": 84
+        },
+        "end_of_term": {
+            "ENG": 85,
+            "MATH": 92,
+            "SCI": 82,
+            "SST": 87
+        }
+    },
+    {
+        "student_id": "MJS005",
+        "first_name": "GOOBI",
+        "last_name": "HAKIM",
+        "mid_term": {
+            "ENG": 79,
+            "MATH": 85,
+            "SCI": 88,
+            "SST": 82
+        },
+        "end_of_term": {
+            "ENG": 83,
+            "MATH": 88,
+            "SCI": 90,
+            "SST": 85
+        }
+    },
+    {
+        "student_id": "MJS006",
+        "first_name": "HANILLAH",
+        "last_name": "JEMEO",
+        "mid_term": {
+            "ENG": 90,
+            "MATH": 78,
+            "SCI": 85,
+            "SST": 88
+        },
+        "end_of_term": {
+            "ENG": 93,
+            "MATH": 82,
+            "SCI": 88,
+            "SST": 90
+        }
+    },
+    {
+        "student_id": "MJS007",
+        "first_name": "KAKUMBA",
+        "last_name": "PRAISE",
+        "mid_term": {
+            "ENG": 87,
+            "MATH": 80,
+            "SCI": 92,
+            "SST": 85
+        },
+        "end_of_term": {
+            "ENG": 90,
+            "MATH": 84,
+            "SCI": 94,
+            "SST": 88
+        }
+    },
+    {
+        "student_id": "MJS008",
+        "first_name": "KALAGWE",
+        "last_name": "LOUIS",
+        "mid_term": {
+            "ENG": 83,
+            "MATH": 90,
+            "SCI": 78,
+            "SST": 86
+        },
+        "end_of_term": {
+            "ENG": 86,
+            "MATH": 93,
+            "SCI": 82,
+            "SST": 89
+        }
+    },
+    {
+        "student_id": "MJS009",
+        "first_name": "KASEKENDE",
+        "last_name": "ELTON",
+        "mid_term": {
+            "ENG": 80,
+            "MATH": 87,
+            "SCI": 85,
+            "SST": 82
+        },
+        "end_of_term": {
+            "ENG": 84,
+            "MATH": 90,
+            "SCI": 88,
+            "SST": 85
+        }
+    },
+    {
+        "student_id": "MJS010",
+        "first_name": "KIRAGGA",
+        "last_name": "SHUKRAN",
+        "mid_term": {
+            "ENG": 85,
+            "MATH": 78,
+            "SCI": 90,
+            "SST": 83
+        },
+        "end_of_term": {
+            "ENG": 88,
+            "MATH": 82,
+            "SCI": 92,
+            "SST": 86
+        }
+    },
+    {
+        "student_id": "MJS011",
+        "first_name": "KIYIMBA",
+        "last_name": "JOSEPH",
+        "mid_term": {
+            "ENG": 82,
+            "MATH": 85,
+            "SCI": 88,
+            "SST": 80
+        },
+        "end_of_term": {
+            "ENG": 85,
+            "MATH": 88,
+            "SCI": 90,
+            "SST": 83
+        }
+    },
+    {
+        "student_id": "MJS012",
+        "first_name": "KIYINGI",
+        "last_name": "LAMECH",
+        "mid_term": {
+            "ENG": 88,
+            "MATH": 80,
+            "SCI": 85,
+            "SST": 87
+        },
+        "end_of_term": {
+            "ENG": 90,
+            "MATH": 84,
+            "SCI": 88,
+            "SST": 90
+        }
+    },
+    {
+        "student_id": "MJS013",
+        "first_name": "KOKWENDA",
+        "last_name": "JOSELYN",
+        "mid_term": {
+            "ENG": 90,
+            "MATH": 78,
+            "SCI": 92,
+            "SST": 85
+        },
+        "end_of_term": {
+            "ENG": 93,
+            "MATH": 82,
+            "SCI": 94,
+            "SST": 88
+        }
+    },
+    {
+        "student_id": "MJS014",
+        "first_name": "KYEYUNE",
+        "last_name": "ZAPHIRAH",
+        "mid_term": {
+            "ENG": 87,
+            "MATH": 85,
+            "SCI": 80,
+            "SST": 88
+        },
+        "end_of_term": {
+            "ENG": 90,
+            "MATH": 88,
+            "SCI": 83,
+            "SST": 91
+        }
+    },
+    {
+        "student_id": "MJS015",
+        "first_name": "MANUELLA",
+        "last_name": "MATINA",
+        "mid_term": {
+            "ENG": 85,
+            "MATH": 90,
+            "SCI": 78,
+            "SST": 86
+        },
+        "end_of_term": {
+            "ENG": 88,
+            "MATH": 93,
+            "SCI": 82,
+            "SST": 89
+        }
+    },
+    {
+        "student_id": "MJS016",
+        "first_name": "MAYANJA",
+        "last_name": "JOVAN",
+        "mid_term": {
+            "ENG": 82,
+            "MATH": 87,
+            "SCI": 85,
+            "SST": 80
+        },
+        "end_of_term": {
+            "ENG": 85,
+            "MATH": 90,
+            "SCI": 88,
+            "SST": 83
+        }
+    },
+    {
+        "student_id": "MJS017",
+        "first_name": "MAYENGO",
+        "last_name": "MOSH",
+        "mid_term": {
+            "ENG": 80,
+            "MATH": 85,
+            "SCI": 88,
+            "SST": 82
+        },
+        "end_of_term": {
+            "ENG": 83,
+            "MATH": 88,
+            "SCI": 90,
+            "SST": 85
+        }
+    },
+    {
+        "student_id": "MJS018",
+        "first_name": "MBAZIIRA",
+        "last_name": "JAIR",
+        "mid_term": {
+            "ENG": 88,
+            "MATH": 78,
+            "SCI": 90,
+            "SST": 85
+        },
+        "end_of_term": {
+            "ENG": 90,
+            "MATH": 82,
+            "SCI": 92,
+            "SST": 88
+        }
+    },
+    {
+        "student_id": "MJS019",
+        "first_name": "MUGABI",
+        "last_name": "ARETHA",
+        "mid_term": {
+            "ENG": 85,
+            "MATH": 80,
+            "SCI": 87,
+            "SST": 83
+        },
+        "end_of_term": {
+            "ENG": 88,
+            "MATH": 84,
+            "SCI": 90,
+            "SST": 86
+        }
+    },
+    {
+        "student_id": "MJS020",
+        "first_name": "MUGABI",
+        "last_name": "HASHIM",
+        "mid_term": {
+            "ENG": 82,
+            "MATH": 88,
+            "SCI": 85,
+            "SST": 80
+        },
+        "end_of_term": {
+            "ENG": 85,
+            "MATH": 91,
+            "SCI": 88,
+            "SST": 83
+        }
+    },
+    {
+        "student_id": "MJS021",
+        "first_name": "MUWANGUZI",
+        "last_name": "WILLIAMS",
+        "mid_term": {
+            "ENG": 80,
+            "MATH": 85,
+            "SCI": 88,
+            "SST": 82
+        },
+        "end_of_term": {
+            "ENG": 83,
+            "MATH": 88,
+            "SCI": 90,
+            "SST": 85
+        }
+    },
+    {
+        "student_id": "MJS022",
+        "first_name": "NAKIMULI",
+        "last_name": "ANITAH",
+        "mid_term": {
+            "ENG": 88,
+            "MATH": 78,
+            "SCI": 90,
+            "SST": 85
+        },
+        "end_of_term": {
+            "ENG": 90,
+            "MATH": 82,
+            "SCI": 92,
+            "SST": 88
+        }
+    },
+    {
+        "student_id": "MJS023",
+        "first_name": "NAMULEME",
+        "last_name": "ELIZABETH",
+        "mid_term": {
+            "ENG": 85,
+            "MATH": 80,
+            "SCI": 87,
+            "SST": 83
+        },
+        "end_of_term": {
+            "ENG": 88,
+            "MATH": 84,
+            "SCI": 90,
+            "SST": 86
+        }
+    },
+    {
+        "student_id": "MJS024",
+        "first_name": "NAMUTEBI",
+        "last_name": "NAVERI",
+        "mid_term": {
+            "ENG": 90,
+            "MATH": 78,
+            "SCI": 85,
+            "SST": 88
+        },
+        "end_of_term": {
+            "ENG": 93,
+            "MATH": 82,
+            "SCI": 88,
+            "SST": 90
+        }
+    },
+    {
+        "student_id": "MJS025",
+        "first_name": "NANTABA",
+        "last_name": "PAULINE",
+        "mid_term": {
+            "ENG": 87,
+            "MATH": 85,
+            "SCI": 80,
+            "SST": 88
+        },
+        "end_of_term": {
+            "ENG": 90,
+            "MATH": 88,
+            "SCI": 83,
+            "SST": 91
+        }
+    },
+    {
+        "student_id": "MJS026",
+        "first_name": "NKINZI",
+        "last_name": "MARGARET",
+        "mid_term": {
+            "ENG": 85,
+            "MATH": 90,
+            "SCI": 78,
+            "SST": 86
+        },
+        "end_of_term": {
+            "ENG": 88,
+            "MATH": 93,
+            "SCI": 82,
+            "SST": 89
+        }
+    },
+    {
+        "student_id": "MJS027",
+        "first_name": "SSEKITTO",
+        "last_name": "ABUBAKER",
+        "mid_term": {
+            "ENG": 82,
+            "MATH": 87,
+            "SCI": 85,
+            "SST": 80
+        },
+        "end_of_term": {
+            "ENG": 85,
+            "MATH": 90,
+            "SCI": 88,
+            "SST": 83
+        }
+    },
+    {
+        "student_id": "MJS028",
+        "first_name": "SSENTAMU",
+        "last_name": "DALTON",
+        "mid_term": {
+            "ENG": 80,
+            "MATH": 85,
+            "SCI": 88,
+            "SST": 82
+        },
+        "end_of_term": {
+            "ENG": 83,
+            "MATH": 88,
+            "SCI": 90,
+            "SST": 85
+        }
+    },
+    {
+        "student_id": "MJS029",
+        "first_name": "WALMER",
+        "last_name": "NYANZI",
+        "mid_term": {
+            "ENG": 88,
+            "MATH": 78,
+            "SCI": 90,
+            "SST": 85
+        },
+        "end_of_term": {
+            "ENG": 90,
+            "MATH": 82,
+            "SCI": 92,
+            "SST": 88
+        }
+    },
+    {
+        "student_id": "MJS030",
+        "first_name": "ANSHEMIZE",
+        "last_name": "KAREN",
+        "mid_term": {
+            "ENG": 85,
+            "MATH": 80,
+            "SCI": 87,
+            "SST": 83
+        },
+        "end_of_term": {
+            "ENG": 88,
+            "MATH": 84,
+            "SCI": 90,
+            "SST": 86
+        }
+    },
+    {
+        "student_id": "MJS031",
+        "first_name": "ATUKUNDA",
+        "last_name": "CALVIN",
+        "mid_term": {
+            "ENG": 82,
+            "MATH": 88,
+            "SCI": 85,
+            "SST": 80
+        },
+        "end_of_term": {
+            "ENG": 85,
+            "MATH": 91,
+            "SCI": 88,
+            "SST": 83
+        }
+    },
+    {
+        "student_id": "MJS032",
+        "first_name": "AYEBARE",
+        "last_name": "DARRYN",
+        "mid_term": {
+            "ENG": 90,
+            "MATH": 78,
+            "SCI": 85,
+            "SST": 88
+        },
+        "end_of_term": {
+            "ENG": 93,
+            "MATH": 82,
+            "SCI": 88,
+            "SST": 90
+        }
+    },
+    {
+        "student_id": "MJS033",
+        "first_name": "EMMANUEL",
+        "last_name": "MALPHAEUS",
+        "mid_term": {
+            "ENG": 87,
+            "MATH": 85,
+            "SCI": 80,
+            "SST": 88
+        },
+        "end_of_term": {
+            "ENG": 90,
+            "MATH": 88,
+            "SCI": 83,
+            "SST": 91
+        }
+    },
+    {
+        "student_id": "MJS034",
+        "first_name": "JJIBWA",
+        "last_name": "MARIAM",
+        "mid_term": {
+            "ENG": 85,
+            "MATH": 90,
+            "SCI": 78,
+            "SST": 86
+        },
+        "end_of_term": {
+            "ENG": 88,
+            "MATH": 93,
+            "SCI": 82,
+            "SST": 89
+        }
+    },
+    {
+        "student_id": "MJS035",
+        "first_name": "KIMBUGWE",
+        "last_name": "JEREMIAH",
+        "mid_term": {
+            "ENG": 82,
+            "MATH": 87,
+            "SCI": 85,
+            "SST": 80
+        },
+        "end_of_term": {
+            "ENG": 85,
+            "MATH": 90,
+            "SCI": 88,
+            "SST": 83
+        }
+    },
+    {
+        "student_id": "MJS036",
+        "first_name": "KIRABO",
+        "last_name": "JOY",
+        "mid_term": {
+            "ENG": 88,
+            "MATH": 78,
+            "SCI": 90,
+            "SST": 85
+        },
+        "end_of_term": {
+            "ENG": 90,
+            "MATH": 82,
+            "SCI": 92,
+            "SST": 88
+        }
+    },
+    {
+        "student_id": "MJS037",
+        "first_name": "KIYINGI",
+        "last_name": "DALTON",
+        "mid_term": {
+            "ENG": 85,
+            "MATH": 80,
+            "SCI": 87,
+            "SST": 83
+        },
+        "end_of_term": {
+            "ENG": 88,
+            "MATH": 84,
+            "SCI": 90,
+            "SST": 86
+        }
+    },
+    {
+        "student_id": "MJS038",
+        "first_name": "LEYNA",
+        "last_name": "NABAWEESI",
+        "mid_term": {
+            "ENG": 90,
+            "MATH": 78,
+            "SCI": 85,
+            "SST": 88
+        },
+        "end_of_term": {
+            "ENG": 93,
+            "MATH": 82,
+            "SCI": 88,
+            "SST": 90
+        }
+    },
+    {
+        "student_id": "MJS039",
+        "first_name": "MAGANDAAZI",
+        "last_name": "BENEDICTO",
+        "mid_term": {
+            "ENG": 82,
+            "MATH": 88,
+            "SCI": 85,
+            "SST": 80
+        },
+        "end_of_term": {
+            "ENG": 85,
+            "MATH": 91,
+            "SCI": 88,
+            "SST": 83
+        }
+    },
+    {
+        "student_id": "MJS040",
+        "first_name": "MUGUME",
+        "last_name": "JOSIAH",
+        "mid_term": {
+            "ENG": 80,
+            "MATH": 85,
+            "SCI": 88,
+            "SST": 82
+        },
+        "end_of_term": {
+            "ENG": 83,
+            "MATH": 88,
+            "SCI": 90,
+            "SST": 85
+        }
+    },
+    {
+        "student_id": "MJS041",
+        "first_name": "MUKISA",
+        "last_name": "ROSHAN",
+        "mid_term": {
+            "ENG": 88,
+            "MATH": 78,
+            "SCI": 90,
+            "SST": 85
+        },
+        "end_of_term": {
+            "ENG": 90,
+            "MATH": 82,
+            "SCI": 92,
+            "SST": 88
+        }
+    },
+    {
+        "student_id": "MJS042",
+        "first_name": "MUTASABWA",
+        "last_name": "SHANITAH",
+        "mid_term": {
+            "ENG": 85,
+            "MATH": 80,
+            "SCI": 87,
+            "SST": 83
+        },
+        "end_of_term": {
+            "ENG": 88,
+            "MATH": 84,
+            "SCI": 90,
+            "SST": 86
+        }
+    },
+    {
+        "student_id": "MJS043",
+        "first_name": "NABAGEREKA",
+        "last_name": "MARIA",
+        "mid_term": {
+            "ENG": 90,
+            "MATH": 78,
+            "SCI": 85,
+            "SST": 88
+        },
+        "end_of_term": {
+            "ENG": 93,
+            "MATH": 82,
+            "SCI": 88,
+            "SST": 90
+        }
+    },
+    {
+        "student_id": "MJS044",
+        "first_name": "NABAGGALA",
+        "last_name": "HANNAH",
+        "mid_term": {
+            "ENG": 87,
+            "MATH": 85,
+            "SCI": 80,
+            "SST": 88
+        },
+        "end_of_term": {
+            "ENG": 90,
+            "MATH": 88,
+            "SCI": 83,
+            "SST": 91
+        }
+    },
+    {
+        "student_id": "MJS045",
+        "first_name": "NABAGGALA",
+        "last_name": "MARIA",
+        "mid_term": {
+            "ENG": 85,
+            "MATH": 90,
+            "SCI": 78,
+            "SST": 86
+        },
+        "end_of_term": {
+            "ENG": 88,
+            "MATH": 93,
+            "SCI": 82,
+            "SST": 89
+        }
+    },
+    {
+        "student_id": "MJS046",
+        "first_name": "NABATEREGGA",
+        "last_name": "MARIA",
+        "mid_term": {
+            "ENG": 82,
+            "MATH": 87,
+            "SCI": 85,
+            "SST": 80
+        },
+        "end_of_term": {
+            "ENG": 85,
+            "MATH": 90,
+            "SCI": 88,
+            "SST": 83
+        }
+    },
+    {
+        "student_id": "MJS047",
+        "first_name": "NABUKENYA",
+        "last_name": "TENDO",
+        "mid_term": {
+            "ENG": 88,
+            "MATH": 78,
+            "SCI": 90,
+            "SST": 85
+        },
+        "end_of_term": {
+            "ENG": 90,
+            "MATH": 82,
+            "SCI": 92,
+            "SST": 88
+        }
+    },
+    {
+        "student_id": "MJS048",
+        "first_name": "NAGAYI",
+        "last_name": "LAURYN",
+        "mid_term": {
+            "ENG": 85,
+            "MATH": 80,
+            "SCI": 87,
+            "SST": 83
+        },
+        "end_of_term": {
+            "ENG": 88,
+            "MATH": 84,
+            "SCI": 90,
+            "SST": 86
+        }
+    },
+    {
+        "student_id": "MJS049",
+        "first_name": "NAMUGANZA",
+        "last_name": "TASNEEM",
+        "mid_term": {
+            "ENG": 90,
+            "MATH": 78,
+            "SCI": 85,
+            "SST": 88
+        },
+        "end_of_term": {
+            "ENG": 93,
+            "MATH": 82,
+            "SCI": 88,
+            "SST": 90
+        }
+    },
+    {
+        "student_id": "MJS050",
+        "first_name": "NAMULEME",
+        "last_name": "AMIIRAH",
+        "mid_term": {
+            "ENG": 87,
+            "MATH": 85,
+            "SCI": 80,
+            "SST": 88
+        },
+        "end_of_term": {
+            "ENG": 90,
+            "MATH": 88,
+            "SCI": 83,
+            "SST": 91
+        }
+    },
+    {
+        "student_id": "MJS051",
+        "first_name": "NAMULINDA",
+        "last_name": "HANNAH",
+        "mid_term": {
+            "ENG": 85,
+            "MATH": 90,
+            "SCI": 78,
+            "SST": 86
+        },
+        "end_of_term": {
+            "ENG": 88,
+            "MATH": 93,
+            "SCI": 82,
+            "SST": 89
+        }
+    },
+    {
+        "student_id": "MJS052",
+        "first_name": "NATULINDA",
+        "last_name": "SHANIAH",
+        "mid_term": {
+            "ENG": 82,
+            "MATH": 87,
+            "SCI": 85,
+            "SST": 80
+        },
+        "end_of_term": {
+            "ENG": 85,
+            "MATH": 90,
+            "SCI": 88,
+            "SST": 83
+        }
+    },
+    {
+        "student_id": "MJS053",
+        "first_name": "NDAGIRE",
+        "last_name": "RASMIE",
+        "mid_term": {
+            "ENG": 88,
+            "MATH": 78,
+            "SCI": 90,
+            "SST": 85
+        },
+        "end_of_term": {
+            "ENG": 90,
+            "MATH": 82,
+            "SCI": 92,
+            "SST": 88
+        }
+    },
+    {
+        "student_id": "MJS054",
+        "first_name": "SSEKYONDWA",
+        "last_name": "PATRICK",
+        "mid_term": {
+            "ENG": 85,
+            "MATH": 80,
+            "SCI": 87,
+            "SST": 83
+        },
+        "end_of_term": {
+            "ENG": 88,
+            "MATH": 84,
+            "SCI": 90,
+            "SST": 86
+        }
+    },
+    {
+        "student_id": "MJS055",
+        "first_name": "WANDERA",
+        "last_name": "SHUQRAN",
+        "mid_term": {
+            "ENG": 90,
+            "MATH": 78,
+            "SCI": 85,
+            "SST": 88
+        },
+        "end_of_term": {
+            "ENG": 93,
+            "MATH": 82,
+            "SCI": 88,
+            "SST": 90
+        }
+    },
+    {
+        "student_id": "MJS056",
+        "first_name": "WANGI",
+        "last_name": "ISAIAH",
+        "mid_term": {
+            "ENG": 82,
+            "MATH": 88,
+            "SCI": 85,
+            "SST": 80
+        },
+        "end_of_term": {
+            "ENG": 85,
+            "MATH": 91,
+            "SCI": 88,
+            "SST": 83
+        }
+    }
+]

@@ -1,103 +1,151 @@
+'use client';
 import Image from "next/image";
+import { useEffect, useReducer, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { UserCircle } from "lucide-react";
+import Link from "next/link";
+
+// Reducer for managing loading states
+interface LoadingState {
+  [key: string]: boolean;
+}
+
+type LoadingAction =
+  | { type: "SET_LOADING"; role: string }
+  | { type: "CLEAR_LOADING"; role: string };
+
+const initialState: LoadingState = {
+  Administrator: false,
+  Teacher: false,
+  Parent: false,
+  Student: false,
+};
+
+function loadingReducer(state: LoadingState, action: LoadingAction): LoadingState {
+  switch (action.type) {
+    case "SET_LOADING":
+      return { ...state, [action.role]: true };
+    case "CLEAR_LOADING":
+      return { ...state, [action.role]: false };
+    default:
+      return state;
+  }
+}
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [pageLoading, setPageLoading] = useState(true);
+  const [loadingStates, dispatch] = useReducer(loadingReducer, initialState);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  useEffect(() => {
+    const timer = setTimeout(() => setPageLoading(false), 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Simulate clearing loading state after navigation
+  const handleLinkClick = (role: string) => {
+    dispatch({ type: "SET_LOADING", role });
+    setTimeout(() => {
+      dispatch({ type: "CLEAR_LOADING", role });
+    }, 2000); // Simulate 2-second navigation delay
+  };
+
+  return (
+    <div>
+      <AnimatePresence mode="wait">
+        {pageLoading ? (
+          <motion.div
+            key="loader"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col items-center justify-center min-h-[100dvh] bg-gradient-to-r from-gray-700 to-gray-900"
           >
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="/images/logo.png"
+              alt="Logo"
+              width={150}
+              height={150}
+              className="mb-6 animate-pulse"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          </motion.div>
+        ) : (
+          <motion.div
+            key="content"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -40 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col items-center justify-center min-h-[100dvh] bg-grey-200"
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+            <div>
+              {/* Role selection */}
+              <div className="flex flex-col gap-4 mb-8 scale-90 sm:scale-100">
+                <h1 className="text-2xl py-4 font-bold text-gray-600">Log in as</h1>
+                <div className="flex flex-wrap justify-center gap-8">
+                  <Account
+                    role="Administrator"
+                    href="/admin/dashboard"
+                    isLoading={loadingStates.Administrator}
+                    onClick={() => handleLinkClick("Administrator")}
+                  />
+                  <Account
+                    role="Teacher"
+                    href="/teacher"
+                    isLoading={loadingStates.Teacher}
+                    onClick={() => handleLinkClick("Teacher")}
+                  />
+                  <Account
+                    role="Parent"
+                    href="/parent"
+                    isLoading={loadingStates.Parent}
+                    onClick={() => handleLinkClick("Parent")}
+                  />
+                  <Account
+                    role="Student"
+                    href="/student"
+                    isLoading={loadingStates.Student}
+                    onClick={() => handleLinkClick("Student")}
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
+  );
+}
+
+interface AccountProps {
+  role: string;
+  href: string;
+  isLoading: boolean;
+  onClick: () => void;
+}
+
+function Account({ role, href, isLoading, onClick }: AccountProps) {
+  return (
+    <a
+      href={href}
+      onClick={onClick}
+      className="flex flex-col items-center gap-2"
+    >
+      <div className="bg-red-800 opacity-90 px-4 py-2 rounded-lg shadow-md">
+        {isLoading ? (
+          <div
+            className="w-8 h-8 border-4 border-t-transparent border-gray-300 rounded-full animate-spin"
+            role="status"
+            aria-label={`Loading ${role}`}
+          ></div>
+        ) : (
+          <UserCircle
+            className="w-8 h-8 text-gray-100 hover:text-gray-300 transition-colors duration-200 sm:w-10 sm:h-10"
+            aria-label={`${role} profile`}
+          />
+        )}
+      </div>
+      <p className="text-xs text-gray-500">{role}</p>
+    </a>
   );
 }
