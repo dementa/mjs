@@ -38,7 +38,7 @@ export default function UpdateInterviewForm({ id }: { id: number }) {
     useEffect(() => {
         try {
             const fetchInterviewData = async () => {
-                const response = await fetch(`http://localhost:5000/interviews/${id}`, {
+                const response = await fetch(`http//192.168.100.169:5000/interviews`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -161,7 +161,7 @@ export default function UpdateInterviewForm({ id }: { id: number }) {
         // Send data to backend
         try {
 
-            const response = await fetch(`http://localhost:5000/interviews/${id}`, {
+            const response = await fetch(`http//192.168.100.169:5000/interviews`, {
                 method: "PUT", // or 'PUT'
                 headers: {
                     "Content-Type": "application/json", // tell backend it's JSON

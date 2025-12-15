@@ -157,7 +157,7 @@ const InterviewTable = ({Data}) => {
     setLoading(true)
     if (window.confirm('Are you sure you want to delete this candidate?')) {
       try {
-        await fetch(`http://localhost:5000/interviews/${id}`, {
+        await fetch(`http//192.168.100.169:5000/interviews`, {
           method: 'DELETE'
         });
         alert("Candidate deleted successfully.");

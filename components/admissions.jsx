@@ -58,7 +58,7 @@ const AdmissionSystem = () => {
 
   //Interaction with backend (fetch interviews)
   useEffect(() => {
-    fetch("http://localhost:5000/interviews")
+    fetch("http//192.168.100.169:5000/interviews")
       .then(res => res.json())
       .then(data => {
         //filter interview where status is pending.
@@ -134,7 +134,7 @@ const AdmissionSystem = () => {
       setCandidates(candidates.filter(candidate => candidate.id !== id));
 
       try {
-        await fetch(`http://localhost:5000/interviews/${id}`, {
+        await fetch(`http//192.168.100.169:5000/interviews`, {
           method: 'DELETE'
         });
         alert("Candidate deleted successfully.");
