@@ -45,7 +45,7 @@ export default function InterviewForm() {
 
         // Send data to backend
         try {
-            const response = await fetch("http//192.168.100.169:5000/interviews", {
+            const response = await fetch("https://mjs-backend-server.onrender.com/interviews", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json", // tell backend it's JSON

@@ -58,7 +58,7 @@ const AdmissionSystem = () => {
 
   //Interaction with backend (fetch interviews)
   useEffect(() => {
-    fetch("http//192.168.100.169:5000/interviews")
+    fetch("https://mjs-backend-server.onrender.com/interviews")
       .then(res => res.json())
       .then(data => {
         //filter interview where status is pending.
