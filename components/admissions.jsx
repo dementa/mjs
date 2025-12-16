@@ -60,13 +60,17 @@ const AdmissionSystem = () => {
   useEffect(() => {
     fetch("https://mjs-backend-server.onrender.com/interviews")
       .then(res => res.json())
-      .then(data => {
-        //filter interview where status is pending.
-        
-        
+      .then(response => {
+        // Extract array from backend response
+        const interviews = response.data || [];
 
-        setIntervieweeList(data);
-        console.log("Backend Response:", data);
+        // Filter only Pending interviews
+        const pendingInterviews = interviews.filter(
+          interview => interview.status === "Pending"
+        );
+
+        setIntervieweeList(pendingInterviews);
+        console.log("Pending Interviews:", pendingInterviews);
       })
       .catch(err => console.error("Error fetching interviews:", err));
   }, []);
