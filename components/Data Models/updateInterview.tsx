@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { InterviewScoreDTO, UpdateInterviewDTO, Section, CLASS_BY_SECTION, getClassesBySection, getSubjectsBySection } from '@/types/interview.types';
 
 
-export default function UpdateInterviewForm({ id }: { id: number }) {
+export default function UpdateInterviewForm({ id }: { id: String }) {
     const [isLoading, setIsLoading] = useState(true);
     const [whatsToUpdateScore, setWhatsToUpdateScore] = useState<boolean>(false);
     const [studentAggregate, setStudentAggregate] = useState<string>('X');
@@ -38,12 +38,12 @@ export default function UpdateInterviewForm({ id }: { id: number }) {
     useEffect(() => {
         try {
             const fetchInterviewData = async () => {
-                const response = await fetch(`http//192.168.100.169:5000/interviews`, {
+                const response = await fetch(`https://mjs-backend-server.onrender.com/interviews/${id}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                });
+                }); 
 
                 // Handle non-200 responses
                 if (!response.ok) {
@@ -51,9 +51,10 @@ export default function UpdateInterviewForm({ id }: { id: number }) {
                 }
 
                 // Parse JSON response
-                const data = await response.json();
-                setInterviewData(data);
-                console.log("Interview data on update: ", data)
+                const results = await response.json();
+                const interviews = results.data || [];
+                setInterviewData(interviews);
+                console.log("Interview data on update: ", interviews)
                 setIsLoading(false);
             };
 
@@ -162,7 +163,7 @@ export default function UpdateInterviewForm({ id }: { id: number }) {
         // Send data to backend
         try {
 
-            const response = await fetch(`http//192.168.100.169:5000/interviews`, {
+            const response = await fetch(`https://mjs-backend-server.onrender.com/interviews/${id}`, {
                 method: "PUT", // or 'PUT'
                 headers: {
                     "Content-Type": "application/json", // tell backend it's JSON

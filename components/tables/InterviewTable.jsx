@@ -153,11 +153,12 @@ const InterviewTable = ({Data}) => {
     openModal(<UpdateInterviewForm id={id} />)
   };
 
+  //Delete Interview record
   const handleDelete = async (id) => {
     setLoading(true)
     if (window.confirm('Are you sure you want to delete this candidate?')) {
       try {
-        await fetch(`http//192.168.100.169:5000/interviews`, {
+        await fetch(`https://mjs-backend-server.onrender.com/interviews/${id}`, {
           method: 'DELETE'
         });
         alert("Candidate deleted successfully.");

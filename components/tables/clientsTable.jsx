@@ -29,7 +29,7 @@ import {
   Select,
   Avatar,
 } from '@mui/material';
-import { Eye, Trash2, Pencil, Download, Search, Filter, ChevronUp, ChevronDown, User, Mail, Phone, MapPin } from 'lucide-react';
+import { Eye, Trash2, Pencil, Download, Search, Filter, ChevronUp, ChevronDown, User, Mail, Phone, MapPin, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import useModalStore from '@/store/modalStore';
 
@@ -309,7 +309,7 @@ const LearnersTable = () => {
       <Card className='shadow-lg rounded-xl overflow-hidden' sx={{ border: '1px solid #e5e7eb' }}>
         {/* Table Header */}
         <div className='px-4 pt-6'>
-          <SectionHeader title="Student Management" subtitle="Manage student information effectively" />
+          <SectionHeader Icon={UserPlus} title="Student Management" subtitle="Manage student information effectively" />
         </div>
         <CardContent sx={{ backgroundColor: '#ffffff' }}>
           

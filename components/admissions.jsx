@@ -46,7 +46,7 @@ const AdmissionSystem = () => {
     level: '',
     subject: '',
     interviewScore: 0,
-    status: 'pending',
+    status: 'Pending',
     subjects: [],
     issuedBy: 'Head Teacher',
     background: '',
@@ -69,16 +69,18 @@ const AdmissionSystem = () => {
           interview => interview.status === "Pending"
         );
 
-        setIntervieweeList(pendingInterviews);
-        console.log("Pending Interviews:", pendingInterviews);
+        setIntervieweeList(interviews);
+        setPendingInterviewList(pendingInterviews);
+        console.log("Pending Interviews:", interviews.length);
+        console.log(interviews)
       })
       .catch(err => console.error("Error fetching interviews:", err));
   }, []);
 
   useEffect(() => {
     console.log("Interviewee List Updated:", intervieweeList);
-    const readyForAdmissions = intervieweeList.filter(c => c.status === 'completed');
-    const pendingInterviews = intervieweeList.filter(p => p.status === "pending");
+    const readyForAdmissions = intervieweeList.filter(c => c.status === 'Completed');
+    const pendingInterviews = intervieweeList.filter(p => p.status === "Pending");
 
     setPendingInterviewList(pendingInterviews);
     setCandidates(readyForAdmissions);
@@ -117,7 +119,7 @@ const AdmissionSystem = () => {
       level: '',
       subject: '',
       interviewScore: 0,
-      status: 'pending',
+      status: 'Pending',
       subjects: [],
       issuedBy: 'Head Teacher',
       background: '',
@@ -170,18 +172,18 @@ const AdmissionSystem = () => {
   };
 
   const completeAdmission = (id) => {
-    updateCandidate(id, { admissionStatus: 'completed' });
+    updateCandidate(id, { admissionStatus: 'Completed' });
   };
 
   const addCandidate = (newCand) => {
     const id = candidates.length ? Math.max(...candidates.map(c => c.id)) + 1 : 1;
-    setCandidates([...candidates, { ...newCand, id, admissionStatus: 'pending', interviewScore: newCand.interviewScore || 0 }]);
+    setCandidates([...candidates, { ...newCand, id, admissionStatus: 'Pending', interviewScore: newCand.interviewScore || 0 }]);
   };
 
   const getStatusLabel = (status) => {
     switch (status) {
       case 'approved':
-      case 'completed': return { text: 'Completed', color: 'bg-green-100 text-green-800' };
+      case 'Completed': return { text: 'Completed', color: 'bg-green-100 text-green-800' };
       case 'try':
       case 'ongoing': return { text: 'Ongoing', color: 'bg-yellow-100 text-yellow-800' };
       case 'repeat':
@@ -193,7 +195,7 @@ const AdmissionSystem = () => {
   const getAdmissionStatusLabel = (status) => {
     switch (status) {
       case 'ready': return { text: 'Ready for Admission', color: 'bg-gray-100 text-gray-800' };
-      case 'completed': return { text: 'Fully Registered', color: 'bg-purple-100 text-purple-800' };
+      case 'Completed': return { text: 'Fully Registered', color: 'bg-purple-100 text-purple-800' };
       default: return { text: 'Pending Interview', color: 'bg-gray-100 text-gray-800' };
     }
   };
@@ -201,9 +203,9 @@ const AdmissionSystem = () => {
   // Filter candidates based on active tab and filters
   const filteredCandidates = candidates.filter(candidate => {
     // Tab filtering
-    if (activeTab === 'interview' && candidate.admissionStatus !== 'pending') return false;
+    if (activeTab === 'interview' && candidate.admissionStatus !== 'Pending') return false;
     if (activeTab === 'ready' && candidate.admissionStatus !== 'ready') return false;
-    if (activeTab === 'registered' && candidate.admissionStatus !== 'completed') return false;
+    if (activeTab === 'registered' && candidate.admissionStatus !== 'Completed') return false;
 
     // Status filtering
     if (filterStatus !== 'all' && candidate.status !== filterStatus) return false;
@@ -220,45 +222,21 @@ const AdmissionSystem = () => {
   console.log(candidates);
 
   return (
-    <div className="min-h-screen bg-gray-50 overflow-hidden py-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:items-center md:flex-row justify-between mb-6">
-          <div className='px-4 pt-4'>
-            <SectionHeader title="Admission Management" subtitle="Manage student admissions efficiently" />
-          </div>
-          <div className='flex gap-2 justify-end mr-4'>
-            <button
-              onClick={() => handleNewInterview()}
-              className="align-right flex items-center bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition"
-            >
-              <BookAlert size={16} className="mr-2" />
-              <p className='text-xs md:text-md'>Issue Interview</p>
-            </button>
-            <button
-              onClick={() => setShowForm(true)}
-              className="align-right flex items-center bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition"
-            >
-              <UserPlus size={16} className="mr-2" />
-              <p className='text-xs md:text-md'>New Candidate</p>
-            </button>
-          </div>
+    <div className='min-h-screen'>
+      {/* Tabs */}
+      <div className="bg-white rounded-lg shadow mb-2 text-xs">
+        <div className="flex border-b">
+          <Tab id="interview" title={"Interviews"} setActiveTab={setActiveTab} activeTab={activeTab} Icon={ClipboardList} candidates={intervieweeList} />
+          <Tab id="ready" title={"Ready for Admission"} setActiveTab={setActiveTab} activeTab={activeTab} Icon={CheckCircle} candidates={candidates} />
+          <Tab id="registered" title={"Fully Registered"} setActiveTab={setActiveTab} activeTab={activeTab} Icon={UserCheck} candidates={candidates} />
         </div>
-
-        {/* Tabs */}
-        <div className="bg-white rounded-lg shadow mb-2 text-xs">
-          <div className="flex border-b">
-            <Tab id="interview" title={"Interviews"} setActiveTab={setActiveTab} activeTab={activeTab} Icon={ClipboardList} candidates={intervieweeList} />
-            <Tab id="ready" title={"Ready for Admission"} setActiveTab={setActiveTab} activeTab={activeTab} Icon={CheckCircle} candidates={candidates} />
-            <Tab id="registered" title={"Fully Registered"} setActiveTab={setActiveTab} activeTab={activeTab} Icon={UserCheck} candidates={candidates} />
-          </div>
-        </div>
-
-
-        {/* Interview List */}
-        {activeTab === 'interview' && <InterviewTable Data={pendingInterviewList} />}
-        {activeTab === 'ready' && <AdmissionTable Data={candidates} />}
-
       </div>
+
+
+      {/* Interview List */}
+      {activeTab === 'interview' && <InterviewTable Data={pendingInterviewList} />}
+      {activeTab === 'ready' && <AdmissionTable Data={candidates} />}
+
     </div>
   );
 };
@@ -373,7 +351,7 @@ const CandidateRow = ({
                     className="w-20 px-2 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-gray-500"
                   />
                   <button
-                    onClick={() => onUpdate(candidate.id, { interviewScore: localScore, status: 'completed' })}
+                    onClick={() => onUpdate(candidate.id, { interviewScore: localScore, status: 'Completed' })}
                     className="ml-2 inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
                   >
                     Save Score
@@ -381,7 +359,7 @@ const CandidateRow = ({
                 </div>
 
                 <div className="mt-4 flex space-x-2">
-                  {activeTab === 'interview' && candidate.status === 'pending' && (
+                  {activeTab === 'interview' && candidate.status === 'Pending' && (
                     <>
                       <button
                         onClick={() => onStatusChange(candidate.id, 'approved')}
@@ -404,7 +382,7 @@ const CandidateRow = ({
                     </>
                   )}
 
-                  {activeTab === 'interview' && candidate.status !== 'pending' && (
+                  {activeTab === 'interview' && candidate.status !== 'Pending' && (
                     <button
                       onClick={() => onMoveToQueue(candidate.id)}
                       className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-gray-600 hover:bg-gray-700"
@@ -643,8 +621,8 @@ const CandidateForm = ({ newCandidate, editingCandidate, handleInputChange, hand
 
 const Tab = ({ id, title, setActiveTab, activeTab, Icon: Icon, candidates }) => {
   const count = candidates.filter(c => {
-    if (id === 'interview') return c.status === 'pending' || c.status === undefined;
-    if (id === 'ready') return c.status === 'completed';
+    if (id === 'interview') return c.status === 'Pending' || c.status === undefined;
+    if (id === 'ready') return c.status === 'Completed';
     return false;
   }).length;
 
@@ -676,7 +654,7 @@ const AdmissionProcessForm = ({ onClose, onAdd }) => {
     level: '',
     subject: '',
     interviewScore: 0,
-    status: 'pending',
+    status: 'Pending',
     subjects: [],
     issuedBy: 'Head Teacher',
   });
@@ -738,7 +716,7 @@ const AdmissionProcessForm = ({ onClose, onAdd }) => {
       subject: interviewData.subject,
       interviewDate: interviewData.interviewDate,
       issuedBy: interviewData.issuedBy,
-      status: 'pending',
+      status: 'Pending',
     };
     onAdd(newInterviewee);
     onClose();
@@ -757,7 +735,7 @@ const AdmissionProcessForm = ({ onClose, onAdd }) => {
       subject: '',
       interviewDate: new Date().toISOString().split('T')[0],
       issuedBy: 'Head Teacher',
-      status: 'completed',
+      status: 'Completed',
       admissionStatus: 'ready',
       gender: studentBio.gender,
       parentName: parentDetails.parentName,

@@ -26,7 +26,7 @@ import {
   InputLabel,
   Select,
 } from '@mui/material';
-import { Download, Search, ChevronUp, ChevronDown } from 'lucide-react';
+import { Download, Search, ChevronUp, ChevronDown, UserPlus } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -391,7 +391,7 @@ const StudentReportsTable = () => {
   return (
     <Card className='shadow-lg rounded-xl overflow-hidden' sx={{ border: '1px solid #e5e7eb' }}>
       <div className='px-4 pt-6'>
-        <SectionHeader title="Student Reports Management" subtitle="View and export student exam reports" />
+        <SectionHeader Icon={UserPlus} title="Student Reports Management" subtitle="View and export student exam reports" />
       </div>
       <CardContent sx={{ backgroundColor: '#ffffff' }}>
         <div className="flex flex-col md:flex-row gap-4 mb-6">
