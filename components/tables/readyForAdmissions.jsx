@@ -31,6 +31,7 @@ import {
 import { Eye, Trash2, Pencil, Download, Search, Filter, ChevronUp, ChevronDown, User, Mail, Phone, MapPin } from 'lucide-react';
 import Link from 'next/link';
 import useModalStore from '@/store/modalStore';
+import { useRouter } from 'next/navigation';
 
 import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
@@ -129,6 +130,7 @@ const AdmissionsTable = ({Data}) => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [statusFilter, setStatusFilter] = useState('all');
   const open = Boolean(anchorEl);
+  const router = useRouter();
   
 
   // Sample student data with additional fields
@@ -148,12 +150,12 @@ const AdmissionsTable = ({Data}) => {
   const [pdfHeader, setPdfHeader] = useState('Sample Header');
 
   const handleUpdate = (id) => {
-    openModal(<UpdateInterviewForm id={id} />)
+    router.push('./admin/students/admissions/interview-upadate')
   };
 
   const handleDelete = async (id) => {
     setLoading(true)
-    if (window.confirm('Are you sure you want to delete this candidate?')) {
+    if (window.confirm('Are you sure you want to delete this candidate fffff ?')) {
       try {
         await fetch(`http//192.168.100.169:5000/interviews`, {
           method: 'DELETE'

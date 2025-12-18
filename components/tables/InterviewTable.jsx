@@ -37,9 +37,7 @@ import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { styled } from '@mui/material/styles';
-import SectionHeader from '../ui/sectionHeader';
-import Modal from '@/components/Data Models/modal'
-import UpdateInterviewForm from '../Data Models/updateInterview';
+import { useRouter } from 'next/navigation'
 
 
 // Custom styled button with your colors
@@ -131,13 +129,14 @@ const InterviewTable = ({Data}) => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [paginatedData, setPaginatedData] = useState([]);
   const open = Boolean(anchorEl);
+  const router = useRouter();
   
 
   // Sample student data with additional fields
 
   const interviewStatus = [
     'In-Progress',
-    'Completed',
+    'Completed',       
     'Pending'
   ];
 
@@ -150,13 +149,15 @@ const InterviewTable = ({Data}) => {
   const [pdfHeader, setPdfHeader] = useState('Sample Header');
 
   const handleUpdate = (id) => {
-    openModal(<UpdateInterviewForm id={id} />)
+    console.log(id)
+    router.push(`/admin/students/admissions/interview-upadate/${id}`)
   };
 
   //Delete Interview record
   const handleDelete = async (id) => {
     setLoading(true)
-    if (window.confirm('Are you sure you want to delete this candidate?')) {
+    if (window.confirm(`Are you sure you want to delete this candidate wit id: ${id}`)) {
+      console.log(Data);
       try {
         await fetch(`https://mjs-backend-server.onrender.com/interviews/${id}`, {
           method: 'DELETE'
@@ -582,7 +583,7 @@ const InterviewTable = ({Data}) => {
                                 <CustomIconButton
                                   className="view-btn"
                                   size="small"
-                                  onClick={() => handleUpdate(row?.id)}
+                                  onClick={() => handleUpdate(row?._id)}
                                 >
                                   <Eye size={16} />
                                 </CustomIconButton>
@@ -591,7 +592,7 @@ const InterviewTable = ({Data}) => {
                                 <CustomIconButton
                                   className="edit-btn"
                                   size="small"
-                                  onClick={() => handleUpdate(row?.id)}
+                                  onClick={() => handleUpdate(row?._id)}
                                 >
                                   <Pencil size={16} />
                                 </CustomIconButton>
@@ -600,7 +601,7 @@ const InterviewTable = ({Data}) => {
                                 <CustomIconButton
                                   className="delete-btn"
                                   size="small"
-                                  onClick={() => handleDelete(row?.id)}
+                                  onClick={() => handleDelete(row?._id)}
                                 >
                                   <Trash2 size={16} />
                                 </CustomIconButton>

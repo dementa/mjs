@@ -1,7 +1,8 @@
 'use client'
-import React, { useState, useEffect} from 'react';
-import { AlertCircle, CheckCircle2, Loader2, UserPlus, School, BookOpen } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect, use } from 'react';
+import { AlertCircle, CheckCircle2, Loader2, UserPlus, School, BookOpen, Lock, Unlock, Info } from 'lucide-react';
+import { useRouter, useSearchParams, useParams } from 'next/navigation';
+
 
 // Type definitions
 type Section = 'Pre-Primary' | 'Primary';
@@ -31,53 +32,123 @@ const getClassesBySection = (section: Section | '') =>
 const getSubjectsBySection = (section: Section | '') => 
   section ? SUBJECTS_BY_SECTION[section as Section] : [];
 
-interface CreateInterviewDTO {
+interface Interview {
+  id: string;
   firstName: string;
   lastName: string;
   otherNames?: string;
   previousSchool: string;
-  section: Section | '';
+  section: Section;
   class: string;
   subject: string;
   score?: number;
-  status?: InterviewStatus;
+  status: InterviewStatus;
   issuedBy: string;
+  feedback?: string;
+  createdAt: string;
+}
+
+interface UpdateInterviewDTO {
+  firstName?: string;
+  lastName?: string;
+  otherNames?: string;
+  previousSchool?: string;
+  section?: Section;
+  class?: string;
+  subject?: string;
+  score?: number;
+  status?: InterviewStatus;
+  issuedBy?: string;
   feedback?: string;
 }
 
-export default function InterviewRegistrationPage() {
+export default function InterviewUpdatePage() {
+  const params = useParams();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  
+  const interviewId = params.id; // Replace with actual ID from route
+  console.log('Interview ID', interviewId);
+  
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [editingEnabled, setEditingEnabled] = useState(false);
 
-  const [interviewData, setInterviewData] = useState<CreateInterviewDTO>({
+  const [originalData, setOriginalData] = useState<Interview | null>(null);
+  const [interviewData, setInterviewData] = useState<Interview>({
+    id: '',
     firstName: '',
     lastName: '',
     otherNames: '',
     previousSchool: '',
-    section: '',
+    section: '' as Section,
     class: '',
     subject: '',
     score: undefined,
     status: 'Pending',
     issuedBy: '',
     feedback: '',
+    createdAt: '',
   });
 
   const availableClasses = getClassesBySection(interviewData.section);
   const availableSubjects = getSubjectsBySection(interviewData.section);
 
+  // Fetch interview data on mount
+  useEffect(() => {
+    fetchInterviewData();
+  }, [interviewId]);
+
   // Reset class and subject when section changes
   useEffect(() => {
-    setInterviewData(prev => ({
-      ...prev,
-      class: '',
-      subject: ''
-    }));
-  }, [interviewData.section]);
+    if (editingEnabled && originalData && interviewData.section !== originalData.section) {
+      setInterviewData(prev => ({
+        ...prev,
+        class: '',
+        subject: ''
+      }));
+    }
+  }, [interviewData.section, editingEnabled, originalData]);
+
+  // Auto-calculate status based on score
+  useEffect(() => {
+    if (interviewData.score !== undefined && interviewData.score !== null) {
+      const newStatus: InterviewStatus = interviewData.score >= 50 ? 'Passed' : 'Failed';
+      if (interviewData.status !== newStatus) {
+        setInterviewData(prev => ({
+          ...prev,
+          status: newStatus
+        }));
+      }
+    }
+  }, [interviewData.score]);
+
+  const fetchInterviewData = async () => {
+    setIsLoading(true);
+    try {
+      // For demo purposes, using mock data
+      // Replace with actual API call:
+      const response = await fetch(`https://mjs-backend-server.onrender.com/interviews/${interviewId}`);
+      const interviewRecord = await response.json();
+      console.log(interviewRecord.data);
+      
+      // Mock data for demonstration
+      const mockData: Interview = interviewRecord.data;
+
+      setOriginalData(mockData);
+      setInterviewData(mockData);
+    } catch (error) {
+      console.error('❌ Error fetching interview:', error);
+      setErrorMessage('Failed to load interview data');
+      setSubmitStatus('error');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (!editingEnabled) return;
     const { name, value } = e.target;
     setInterviewData(prev => ({ 
       ...prev, 
@@ -86,6 +157,7 @@ export default function InterviewRegistrationPage() {
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (!editingEnabled) return;
     const { name, value } = e.target;
     setInterviewData(prev => ({ 
       ...prev, 
@@ -125,7 +197,49 @@ export default function InterviewRegistrationPage() {
     return true;
   };
 
-  const handleInterviewSubmit = async () => {
+  const getChangedFields = (): UpdateInterviewDTO => {
+    if (!originalData) return {};
+
+    const changes: UpdateInterviewDTO = {};
+
+    if (interviewData.firstName !== originalData.firstName) {
+      changes.firstName = interviewData.firstName.trim();
+    }
+    if (interviewData.lastName !== originalData.lastName) {
+      changes.lastName = interviewData.lastName.trim();
+    }
+    if (interviewData.otherNames !== originalData.otherNames) {
+      changes.otherNames = interviewData.otherNames?.trim() || '';
+    }
+    if (interviewData.previousSchool !== originalData.previousSchool) {
+      changes.previousSchool = interviewData.previousSchool.trim();
+    }
+    if (interviewData.section !== originalData.section) {
+      changes.section = interviewData.section;
+    }
+    if (interviewData.class !== originalData.class) {
+      changes.class = interviewData.class;
+    }
+    if (interviewData.subject !== originalData.subject) {
+      changes.subject = interviewData.subject;
+    }
+    if (interviewData.score !== originalData.score) {
+      changes.score = Number(interviewData.score);
+    }
+    if (interviewData.status !== originalData.status) {
+      changes.status = interviewData.status;
+    }
+    if (interviewData.issuedBy !== originalData.issuedBy) {
+      changes.issuedBy = interviewData.issuedBy.trim();
+    }
+    if (interviewData.feedback !== originalData.feedback) {
+      changes.feedback = interviewData.feedback?.trim() || '';
+    }
+
+    return changes;
+  };
+
+  const handleInterviewUpdate = async () => {
     setErrorMessage('');
     
     if (!validateForm()) {
@@ -133,41 +247,26 @@ export default function InterviewRegistrationPage() {
       return;
     }
 
-    setIsLoading(true);
+    const changes = getChangedFields();
+    
+    if (Object.keys(changes).length === 0) {
+      setErrorMessage('No changes detected');
+      setSubmitStatus('error');
+      return;
+    }
+
+    setIsSubmitting(true);
     setSubmitStatus('idle');
 
     try {
-      // Prepare payload - remove empty optional fields
-      const payload: any = {
-        firstName: interviewData.firstName.trim(),
-        lastName: interviewData.lastName.trim(),
-        previousSchool: interviewData.previousSchool.trim(),
-        section: interviewData.section,
-        class: interviewData.class,
-        subject: interviewData.subject,
-        issuedBy: interviewData.issuedBy.trim(),
-        status: interviewData.status || 'Pending',
-      };
+      console.log('📤 Sending update payload:', changes);
 
-      // Only add optional fields if they have values
-      if (interviewData.otherNames?.trim()) {
-        payload.otherNames = interviewData.otherNames.trim();
-      }
-      if (interviewData.score !== undefined && interviewData.score !== null && interviewData.score >= 0) {
-        payload.score = Number(interviewData.score);
-      }
-      if (interviewData.feedback?.trim()) {
-        payload.feedback = interviewData.feedback.trim();
-      }
-
-      console.log('📤 Sending payload:', payload);
-
-      const response = await fetch("https://mjs-backend-server.onrender.com/interviews", {
-        method: "POST",
+      const response = await fetch(`https://mjs-backend-server.onrender.com/interviews/${interviewId}`, {
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(changes),
       });
 
       const responseData = await response.json();
@@ -176,57 +275,109 @@ export default function InterviewRegistrationPage() {
         throw new Error(responseData.message || `Server error: ${response.status}`);
       }
 
-      console.log("✅ Interview successfully saved:", responseData);
+      console.log("✅ Interview successfully updated:", responseData);
       
       setSubmitStatus('success');
+      setOriginalData(interviewData); // Update original data to reflect changes
+      setEditingEnabled(false); // Disable editing after successful update
       
-      // Reset form after 2 seconds
+      // Redirect after 2 seconds
       setTimeout(() => {
-        handleReset();
-        setSubmitStatus('idle');
+        router.push('/admin/students/admissions');
       }, 2000);
 
     } catch (error) {
-      console.error("❌ Error submitting interview:", error);
-      setErrorMessage(error instanceof Error ? error.message : 'An error occurred while submitting');
+      console.error("❌ Error updating interview:", error);
+      setErrorMessage(error instanceof Error ? error.message : 'An error occurred while updating');
       setSubmitStatus('error');
     } finally {
-      setIsLoading(false);
-      router.push('/admin/students/admissions');
+      setIsSubmitting(false);
     }
   };
 
-  const handleReset = () => {
-    setInterviewData({
-      firstName: '',
-      lastName: '',
-      otherNames: '',
-      previousSchool: '',
-      section: '',
-      class: '',
-      subject: '',
-      score: undefined,
-      status: 'Pending',
-      issuedBy: '',
-      feedback: '',
-    });
+  const handleCancel = () => {
+    if (originalData) {
+      setInterviewData(originalData);
+    }
+    setEditingEnabled(false);
     setSubmitStatus('idle');
     setErrorMessage('');
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-12 h-12 animate-spin text-red-700 mx-auto mb-4" />
+          <p className="text-gray-600 font-medium">Loading interview data...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      
-
-      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 py-8">
+        {/* Security Alert */}
+        <div className="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="flex items-start gap-3">
+            <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <p className="text-blue-900 font-medium mb-1">Data Protection Enabled</p>
+              <p className="text-blue-800 text-sm">
+                To prevent accidental changes, editing is disabled by default. Please enable editing below to modify interview data. This security measure ensures data integrity and prevents unauthorized modifications.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Enable Editing Toggle */}
+        <div className="mb-6 bg-white rounded-lg shadow-md border border-gray-200 p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              {editingEnabled ? (
+                <Unlock className="w-5 h-5 text-green-600" />
+              ) : (
+                <Lock className="w-5 h-5 text-gray-400" />
+              )}
+              <div>
+                <p className="font-medium text-gray-900">
+                  {editingEnabled ? 'Editing Enabled' : 'Editing Disabled'}
+                </p>
+                <p className="text-sm text-gray-600">
+                  {editingEnabled 
+                    ? 'You can now modify the interview data' 
+                    : 'Enable editing to make changes to this interview'}
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                setEditingEnabled(!editingEnabled);
+                if (editingEnabled && originalData) {
+                  setInterviewData(originalData); // Reset to original on disable
+                }
+                setSubmitStatus('idle');
+                setErrorMessage('');
+              }}
+              className={`px-4 py-2 rounded-lg font-medium transition ${
+                editingEnabled
+                  ? 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  : 'bg-red-700 text-white hover:bg-red-800'
+              }`}
+            >
+              {editingEnabled ? 'Disable Editing' : 'Enable Editing'}
+            </button>
+          </div>
+        </div>
+
         {/* Success/Error Alerts */}
         {submitStatus === 'success' && (
           <div className="mb-6 bg-green-50 border border-green-200 rounded-lg p-4 flex items-center gap-3">
             <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
             <div>
-              <p className="text-green-800 font-medium">Interview registered successfully!</p>
-              <p className="text-green-700 text-sm">Form will reset automatically.</p>
+              <p className="text-green-800 font-medium">Interview updated successfully!</p>
+              <p className="text-green-700 text-sm">Redirecting to admissions page...</p>
             </div>
           </div>
         )}
@@ -235,7 +386,7 @@ export default function InterviewRegistrationPage() {
           <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4 flex items-center gap-3">
             <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
             <div>
-              <p className="text-red-800 font-medium">Failed to register interview</p>
+              <p className="text-red-800 font-medium">Failed to update interview</p>
               <p className="text-red-700 text-sm">{errorMessage}</p>
             </div>
           </div>
@@ -260,7 +411,8 @@ export default function InterviewRegistrationPage() {
                   name="firstName"
                   value={interviewData.firstName}
                   onChange={handleTextChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
+                  disabled={!editingEnabled}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition disabled:bg-gray-50 disabled:text-gray-600"
                   placeholder="John"
                 />
               </div>
@@ -274,7 +426,8 @@ export default function InterviewRegistrationPage() {
                   name="lastName"
                   value={interviewData.lastName}
                   onChange={handleTextChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
+                  disabled={!editingEnabled}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition disabled:bg-gray-50 disabled:text-gray-600"
                   placeholder="Doe"
                 />
               </div>
@@ -286,9 +439,10 @@ export default function InterviewRegistrationPage() {
                 <input
                   type="text"
                   name="otherNames"
-                  value={interviewData.otherNames}
+                  value={interviewData.otherNames || ''}
                   onChange={handleTextChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
+                  disabled={!editingEnabled}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition disabled:bg-gray-50 disabled:text-gray-600"
                   placeholder="Optional"
                 />
               </div>
@@ -311,7 +465,8 @@ export default function InterviewRegistrationPage() {
                 name="previousSchool"
                 value={interviewData.previousSchool}
                 onChange={handleTextChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
+                disabled={!editingEnabled}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition disabled:bg-gray-50 disabled:text-gray-600"
                 placeholder="Enter previous school name"
               />
             </div>
@@ -333,7 +488,8 @@ export default function InterviewRegistrationPage() {
                   name="section"
                   value={interviewData.section}
                   onChange={handleSelectChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition bg-white"
+                  disabled={!editingEnabled}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition bg-white disabled:bg-gray-50 disabled:text-gray-600"
                 >
                   <option value="">-- Select Level --</option>
                   <option value="Pre-Primary">Pre-Primary</option>
@@ -349,8 +505,8 @@ export default function InterviewRegistrationPage() {
                   name="class"
                   value={interviewData.class}
                   onChange={handleSelectChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition bg-white disabled:bg-gray-50 disabled:text-gray-500"
-                  disabled={!interviewData.section}
+                  disabled={!editingEnabled || !interviewData.section}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition bg-white disabled:bg-gray-50 disabled:text-gray-600"
                 >
                   <option value="">-- Select Class --</option>
                   {availableClasses.map((className) => (
@@ -369,8 +525,8 @@ export default function InterviewRegistrationPage() {
                   name="subject"
                   value={interviewData.subject}
                   onChange={handleSelectChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition bg-white disabled:bg-gray-50 disabled:text-gray-500"
-                  disabled={!interviewData.section}
+                  disabled={!editingEnabled || !interviewData.section}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition bg-white disabled:bg-gray-50 disabled:text-gray-600"
                 >
                   <option value="">-- Select Subject --</option>
                   {availableSubjects.map((subject) => (
@@ -393,7 +549,7 @@ export default function InterviewRegistrationPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Score (Optional)
+                  Score (0-100) <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="number"
@@ -402,31 +558,37 @@ export default function InterviewRegistrationPage() {
                   max="100"
                   value={interviewData.score ?? ''}
                   onChange={(e) => {
+                    if (!editingEnabled) return;
                     const value = e.target.value;
                     setInterviewData(prev => ({
                       ...prev,
                       score: value === '' ? undefined : Number(value)
                     }));
                   }}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
-                  placeholder="0-100"
+                  disabled={!editingEnabled}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition disabled:bg-gray-50 disabled:text-gray-600"
+                  placeholder="Enter score"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Status
+                  Status (Auto-calculated)
                 </label>
-                <select
-                  name="status"
-                  value={interviewData.status}
-                  onChange={handleSelectChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition bg-white"
-                >
-                  <option value="Pending">Pending</option>
-                  <option value="Passed">Passed</option>
-                  <option value="Failed">Failed</option>
-                </select>
+                <div className={`w-full px-3 py-2 border rounded-lg font-medium ${
+                  interviewData.status === 'Passed' 
+                    ? 'bg-green-50 border-green-300 text-green-700' 
+                    : interviewData.status === 'Failed'
+                    ? 'bg-red-50 border-red-300 text-red-700'
+                    : 'bg-gray-50 border-gray-300 text-gray-700'
+                }`}>
+                  {interviewData.status}
+                  {interviewData.score !== undefined && (
+                    <span className="text-xs ml-2">
+                      ({interviewData.score >= 50 ? '≥50' : '<50'})
+                    </span>
+                  )}
+                </div>
               </div>
 
               <div>
@@ -438,7 +600,8 @@ export default function InterviewRegistrationPage() {
                   name="issuedBy"
                   value={interviewData.issuedBy}
                   onChange={handleTextChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
+                  disabled={!editingEnabled}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition disabled:bg-gray-50 disabled:text-gray-600"
                   placeholder="Head Teacher"
                 />
               </div>
@@ -450,10 +613,11 @@ export default function InterviewRegistrationPage() {
               </label>
               <textarea
                 name="feedback"
-                value={interviewData.feedback}
+                value={interviewData.feedback || ''}
                 onChange={handleTextChange}
+                disabled={!editingEnabled}
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition resize-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition resize-none disabled:bg-gray-50 disabled:text-gray-600"
                 placeholder="Enter any feedback or notes about the interview..."
               />
             </div>
@@ -463,27 +627,27 @@ export default function InterviewRegistrationPage() {
           <div className="px-8 py-6 bg-gray-50 rounded-b-xl flex justify-end gap-3">
             <button
               type="button"
-              onClick={handleReset}
+              onClick={handleCancel}
               className="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition font-medium disabled:opacity-50"
-              disabled={isLoading}
+              disabled={isSubmitting || !editingEnabled}
             >
-              Reset
+              Cancel
             </button>
             <button
               type="button"
-              onClick={handleInterviewSubmit}
-              disabled={isLoading}
+              onClick={handleInterviewUpdate}
+              disabled={isSubmitting || !editingEnabled}
               className="px-6 py-2.5 bg-red-700 text-white rounded-lg hover:bg-red-800 transition font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
             >
-              {isLoading ? (
+              {isSubmitting ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  Submitting...
+                  Updating...
                 </>
               ) : (
                 <>
                   <CheckCircle2 className="w-4 h-4" />
-                  Register Interview
+                  Update Interview
                 </>
               )}
             </button>
@@ -493,6 +657,7 @@ export default function InterviewRegistrationPage() {
         {/* Footer Info */}
         <div className="mt-6 text-center text-sm text-gray-500">
           <p>All fields marked with <span className="text-red-500">*</span> are required</p>
+          <p className="mt-1">Status is automatically calculated: Passed (≥50) or Failed (&lt;50)</p>
         </div>
       </div>
     </div>

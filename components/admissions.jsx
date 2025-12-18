@@ -136,11 +136,11 @@ const AdmissionSystem = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this candidate?')) {
+    if (window.confirm('Are you sure you want to delete this candidate hhhhhhh ?')) {
       setCandidates(candidates.filter(candidate => candidate.id !== id));
 
       try {
-        await fetch(`http//192.168.100.169:5000/interviews`, {
+        await fetch(`http//mjs-backend-server.onrender.com/interviews/${id}`, {
           method: 'DELETE'
         });
         alert("Candidate deleted successfully.");
