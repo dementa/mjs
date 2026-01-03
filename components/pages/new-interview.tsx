@@ -397,6 +397,7 @@ export default function InterviewRegistrationPage() {
                 </label>
                 <input
                   type="number"
+                  disabled
                   name="score"
                   min="0"
                   max="100"
@@ -419,6 +420,7 @@ export default function InterviewRegistrationPage() {
                 </label>
                 <select
                   name="status"
+                  disabled
                   value={interviewData.status}
                   onChange={handleSelectChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition bg-white"
@@ -428,8 +430,23 @@ export default function InterviewRegistrationPage() {
                   <option value="Failed">Failed</option>
                 </select>
               </div>
-
               <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Issued by
+                </label>
+                <select
+                  name="status"
+                  value={interviewData.status}
+                  onChange={handleSelectChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition bg-white"
+                >
+                  <option value="Head Teacher">Head Teacher</option>
+                  <option value="Deputy Head Teacher">Deputy Head Teacher</option>
+                  <option value="Admissions OFficer">Admissions Officer</option>
+                </select>
+              </div>
+
+              {/* <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Issued By <span className="text-red-500">*</span>
                 </label>
@@ -441,7 +458,7 @@ export default function InterviewRegistrationPage() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
                   placeholder="Head Teacher"
                 />
-              </div>
+              </div> */}
             </div>
 
             <div>
@@ -453,7 +470,7 @@ export default function InterviewRegistrationPage() {
                 value={interviewData.feedback}
                 onChange={handleTextChange}
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition resize-none"
+                className="w-full text-gray-600 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition resize-none"
                 placeholder="Enter any feedback or notes about the interview..."
               />
             </div>
