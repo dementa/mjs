@@ -8,6 +8,9 @@ export default function StudentAdmissionLayout({ children }) {
     const handleNewInterview = () =>{
         router.push('/admin/students/admissions/interview')
     }
+    const handleNewStudent = () =>{
+        router.push('/admin/students/admissions/new')
+    }
 
     return (
         <div className="bg-gray-50 overflow-hidden py-2">
@@ -25,6 +28,7 @@ export default function StudentAdmissionLayout({ children }) {
                             <p className='text-xs md:text-md'>Issue Interview</p>
                         </button>
                         <button
+                            onClick={() => handleNewStudent()}
                             className="w-full md:w-max-72 align-right flex items-center justify-center bg-gray-600 text-white px-4 py-2 rounded-sm hover:bg-gray-700 transition"
                         >
                             <UserPlus size={16} className="mr-2" />
